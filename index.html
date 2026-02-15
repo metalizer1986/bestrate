@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medna — Barn House на берегу озера</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --black: #1a1a1a;
+            --white: #ffffff;
+            --cream: #f5f3ee;
+            --beige: #e5e2d8;
+            --brown: #4a4035;
+            --accent: #b8956a;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--black);
+            background: var(--white);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 500;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 2rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.4s ease;
+        }
+
+        nav.scrolled {
+            background: var(--white);
+            padding: 1.2rem 5%;
+            box-shadow: 0 1px 0 var(--beige);
+        }
+
+        .logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            color: var(--white);
+            text-decoration: none;
+            letter-spacing: 0.15em;
+            font-weight: 600;
+        }
+
+        nav.scrolled .logo {
+            color: var(--black);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 0.8rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            transition: opacity 0.3s;
+        }
+
+        nav.scrolled .nav-links a {
+            color: var(--black);
+        }
+
+        .nav-links a:hover {
+            opacity: 0.6;
+        }
+
+        /* Hero */
+        .hero {
+            height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+        }
+
+        .hero-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.4);
+        }
+
+        .hero-content {
+            text-align: center;
+            color: var(--white);
+            max-width: 900px;
+            padding: 2rem;
+        }
+
+        .hero-label {
+            font-size: 0.75rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+            opacity: 0.8;
+        }
+
+        .hero h1 {
+            font-size: clamp(3.5rem, 8vw, 7rem);
+            line-height: 1;
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.05em;
+        }
+
+        .hero-tagline {
+            font-size: 1.25rem;
+            font-weight: 300;
+            letter-spacing: 0.05em;
+            margin-bottom: 3rem;
+            opacity: 0.9;
+        }
+
+        .hero-features {
+            display: flex;
+            justify-content: center;
+            gap: 4rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .hero-feature {
+            text-align: center;
+        }
+
+        .hero-feature span {
+            display: block;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero-feature label {
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            opacity: 0.7;
+        }
+
+        .hero-contact {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            color: var(--white);
+            text-decoration: none;
+            font-size: 1.1rem;
+            letter-spacing: 0.1em;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--accent);
+            transition: all 0.3s;
+        }
+
+        .hero-contact:hover {
+            color: var(--accent);
+            border-color: var(--white);
+        }
+
+        /* Sections */
+        section {
+            padding: 10rem 5%;
+        }
+
+        .section-head {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 5rem;
+        }
+
+        .section-label {
+            font-size: 0.7rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--brown);
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .section-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-desc {
+            color: var(--brown);
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        /* About */
+        .about {
+            background: var(--cream);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6rem;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .about-images {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .about-img {
+            overflow: hidden;
+            border-radius: 4px;
+        }
+
+        .about-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s;
+        }
+
+        .about-img:hover img {
+            transform: scale(1.05);
+        }
+
+        .about-img:first-child {
+            grid-row: span 2;
+            height: 600px;
+        }
+
+        .about-img:last-child {
+            height: 280px;
+        }
+
+        .about-content h3 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: var(--black);
+        }
+
+        .about-text {
+            color: var(--brown);
+            margin-bottom: 2rem;
+            line-height: 1.9;
+            font-size: 1.05rem;
+        }
+
+        .about-list {
+            list-style: none;
+        }
+
+        .about-list li {
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--beige);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.95rem;
+        }
+
+        .about-list li span:first-child {
+            color: var(--brown);
+        }
+
+        .about-list li span:last-child {
+            font-weight: 500;
+        }
+
+        /* Features */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            text-align: center;
+            padding: 3rem 2rem;
+            background: var(--cream);
+            transition: all 0.3s;
+            border-radius: 4px;
+        }
+
+        .feature-card:hover {
+            background: var(--beige);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card p {
+            font-size: 0.9rem;
+            color: var(--brown);
+            line-height: 1.6;
+        }
+
+        /* Gallery */
+        .gallery {
+            background: var(--black);
+            color: var(--white);
+        }
+
+        .gallery .section-label {
+            color: var(--accent);
+        }
+
+        .gallery .section-title {
+            color: var(--white);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 4/3;
+            border-radius: 4px;
+        }
+
+        .gallery-item:first-child {
+            grid-column: span 2;
+            aspect-ratio: 16/9;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 2rem;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .gallery-item:hover .gallery-caption {
+            opacity: 1;
+        }
+
+        .gallery-caption h4 {
+            font-size: 1.3rem;
+            color: var(--white);
+        }
+
+        /* Pricing */
+        .pricing {
+            background: var(--cream);
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .pricing-card {
+            background: var(--white);
+            padding: 3rem;
+            text-align: center;
+            position: relative;
+            border-radius: 4px;
+        }
+
+        .pricing-card.featured {
+            background: var(--black);
+            color: var(--white);
+            transform: scale(1.02);
+        }
+
+        .pricing-card.featured::before {
+            content: 'Популярное';
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--accent);
+            color: var(--black);
+            padding: 0.4rem 1.2rem;
+            font-size: 0.7rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .pricing-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .pricing-time {
+            font-size: 0.85rem;
+            color: var(--brown);
+            margin-bottom: 2rem;
+        }
+
+        .pricing-card.featured .pricing-time {
+            color: var(--accent);
+        }
+
+        .price {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 4rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .price span {
+            font-size: 1.5rem;
+        }
+
+        .pricing-note {
+            font-size: 0.85rem;
+            color: var(--brown);
+            margin-bottom: 2rem;
+        }
+
+        .pricing-card.featured .pricing-note {
+            color: rgba(255,255,255,0.6);
+        }
+
+        .pricing-list {
+            list-style: none;
+            text-align: left;
+        }
+
+        .pricing-list li {
+            padding: 0.8rem 0;
+            border-bottom: 1px solid var(--beige);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .pricing-card.featured .pricing-list li {
+            border-color: rgba(255,255,255,0.1);
+        }
+
+        .pricing-list li::before {
+            content: '—';
+            color: var(--accent);
+        }
+
+        /* Contact */
+        .contact {
+            background: var(--white);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .contact-item {
+            padding: 2rem;
+        }
+
+        .contact-icon-wrap {
+            width: 80px;
+            height: 80px;
+            border: 1px solid var(--beige);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 1.8rem;
+            transition: all 0.3s;
+        }
+
+        .contact-item:hover .contact-icon-wrap {
+            background: var(--black);
+            border-color: var(--black);
+        }
+
+        .contact-item h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.05em;
+        }
+
+        .contact-item a {
+            color: var(--brown);
+            text-decoration: none;
+            font-size: 1rem;
+            transition: color 0.3s;
+        }
+
+        .contact-item:hover a {
+            color: var(--accent);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--black);
+            color: var(--white);
+            text-align: center;
+            padding: 4rem 2rem;
+        }
+
+        .footer-logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            letter-spacing: 0.2em;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+
+        .footer-copy {
+            font-size: 0.85rem;
+            opacity: 0.6;
+            letter-spacing: 0.05em;
+        }
+
+        /* Mobile */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+        }
+
+        .menu-toggle span {
+            width: 24px;
+            height: 1px;
+            background: var(--white);
+            transition: 0.3s;
+        }
+
+        nav.scrolled .menu-toggle span {
+            background: var(--black);
+        }
+
+        @media (max-width: 968px) {
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 4rem;
+            }
+
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery-item:first-child {
+                grid-column: span 1;
+            }
+
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                height: 100vh;
+                background: var(--white);
+                flex-direction: column;
+                padding: 6rem 2rem;
+                transition: 0.3s;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .nav-links a {
+                color: var(--black);
+                font-size: 1.1rem;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .hero-features {
+                gap: 2rem;
+            }
+
+            .about-images {
+                grid-template-columns: 1fr;
+            }
+
+            .about-img:first-child {
+                grid-row: span 1;
+                height: 400px;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            section {
+                padding: 6rem 5%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <a href="#" class="logo">Medna</a>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#about">О доме</a></li>
+            <li><a href="#features">Особенности</a></li>
+            <li><a href="#gallery">Галерея</a></li>
+            <li><a href="#pricing">Тарифы</a></li>
+            <li><a href="#contact">Контакты</a></li>
+        </ul>
+        <div class="menu-toggle" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-bg">
+            <img src="https://kimi-web-img.moonshot.cn/img/st.hzcdn.com/bc233390efeb29455bf2f4f5aae7bd3d8d76bfb3.jpg" alt="Barn House на берегу озера">
+        </div>
+        <div class="hero-content">
+            <div class="hero-label">Barn House</div>
+            <h1>Medna</h1>
+            <p class="hero-tagline">Дом на берегу озера с панорамными окнами</p>
+            
+            <div class="hero-features">
+                <div class="hero-feature">
+                    <span>4</span>
+                    <label>Спальных места</label>
+                </div>
+                <div class="hero-feature">
+                    <span>♨</span>
+                    <label>Горячая купель</label>
+                </div>
+                <div class="hero-feature">
+                    <span>🔥</span>
+                    <label>BBQ патио</label>
+                </div>
+            </div>
+
+            <a href="tel:+375291234567" class="hero-contact">+375 (29) 123-45-67</a>
+        </div>
+    </section>
+
+    <!-- About -->
+    <section id="about" class="about">
+        <div class="about-grid">
+            <div class="about-images">
+                <div class="about-img">
+                    <img src="https://kimi-web-img.moonshot.cn/img/normerica.com/820765fe61bf9da07dfbacc32c947049bc94f80d.webp" alt="Barn House фасад">
+                </div>
+                <div class="about-img">
+                    <img src="https://kimi-web-img.moonshot.cn/img/images.squarespace-cdn.com/50eb1cd7bcca1793bfbbb98f4b31d49147dee7ac.jpg" alt="Панорамные окна">
+                </div>
+                <div class="about-img">
+                    <img src="https://kimi-web-img.moonshot.cn/img/cdn.shopify.com/ef40af1649d3078ee6b28349239189dcdfe0f255.jpg" alt="Barn House exterior">
+                </div>
+            </div>
+            <div class="about-content">
+                <span class="section-label">О доме</span>
+                <h3>Современный Barn House на воде</h3>
+                <p class="about-text">Medna — это архитектурный проект в стиле современного амбара, расположенный на самом берегу озера. Высокие потолки, панорамное остекление и натуральные материалы создают пространство для уединённого отдыха.</p>
+                <p class="about-text">Полностью оборудованная кухня, каминная зона и выход на террасу с видом на воду. Всё для того, чтобы вы могли насладиться тишиной и природой.</p>
+                
+                <ul class="about-list">
+                    <li>
+                        <span>Площадь дома</span>
+                        <span>90 м²</span>
+                    </li>
+                    <li>
+                        <span>Терраса</span>
+                        <span>40 м²</span>
+                    </li>
+                    <li>
+                        <span>Спальные места</span>
+                        <span>4 гостя</span>
+                    </li>
+                    <li>
+                        <span>Расстояние до воды</span>
+                        <span>10 метров</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section id="features">
+        <div class="section-head">
+            <span class="section-label">Особенности</span>
+            <h2 class="section-title">Всё для отдыха</h2>
+            <p class="section-desc">Продуманные детали для комфортного пребывания у воды</p>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🪟</div>
+                <h3>Панорамные окна</h3>
+                <p>Фасадное остекление от пола до потолка с видом на озеро</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">♨️</div>
+                <h3>Горячая купель</h3>
+                <p>Деревянный чан с подогревом на террасе у воды</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔥</div>
+                <h3>BBQ патио</h3>
+                <p>Зона барбекю с мангалом и обеденной зоной</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🛏️</div>
+                <h3>4 спальных места</h3>
+                <p>Две спальни с двуспальными кроватями</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🍳</div>
+                <h3>Кухня</h3>
+                <p>Полностью оборудованная кухня с техникой</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔥</div>
+                <h3>Камин</h3>
+                <p>Живой огонь для уютных вечеров</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🚿</div>
+                <h3>Санузел</h3>
+                <p>Современная ванная комната с душем</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🅿️</div>
+                <h3>Парковка</h3>
+                <p>Закрытая территория с парковкой</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery -->
+    <section id="gallery" class="gallery">
+        <div class="section-head">
+            <span class="section-label">Галерея</span>
+            <h2 class="section-title">Пространство Medna</h2>
+        </div>
+
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img src="https://kimi-web-img.moonshot.cn/img/i.digsdigs.com/9fc9265b28352336ce83ae88c11be8b2c55b319e.jpg" alt="Гостиная с камином">
+                <div class="gallery-caption">
+                    <h4>Гостиная с камином</h4>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://kimi-web-img.moonshot.cn/img/cdn.homedit.com/d62a8ea3d7f6b20c852e2784fabd294a8f97a3aa.jpg" alt="Спальня на антресоли">
+                <div class="gallery-caption">
+                    <h4>Спальня</h4>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://kimi-web-img.moonshot.cn/img/www.southernliving.com/8e3343ceef066ce846d931d915cffd35f5909d36.jpg" alt="Кухня">
+                <div class="gallery-caption">
+                    <h4>Кухня</h4>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://kimi-web-img.moonshot.cn/img/woodfarmbarns.com/c1a1a5b19837c3be7990d7fee640185fc7c6153f.jpg" alt="Горячая купель">
+                <div class="gallery-caption">
+                    <h4>Горячая купель</h4>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://kimi-web-img.moonshot.cn/img/www.hello-hayley.com/6d46c7ca33588dbb5be5dbe7520162803b22037a.jpg" alt="BBQ патио">
+                <div class="gallery-caption">
+                    <h4>BBQ патио</h4>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section id="pricing" class="pricing">
+        <div class="section-head">
+            <span class="section-label">Тарифы</span>
+            <h2 class="section-title">Стоимость аренды</h2>
+            <p class="section-desc">Фиксированные цены без скрытых платежей</p>
+        </div>
+
+        <div class="pricing-grid">
+            <div class="pricing-card">
+                <h3>Будни</h3>
+                <p class="pricing-time">Пн — Чт</p>
+                <div class="price">400 <span>Br</span></div>
+                <p class="pricing-note">за сутки</p>
+                <ul class="pricing-list">
+                    <li>До 4 гостей</li>
+                    <li>Панорамные окна</li>
+                    <li>Горячая купель</li>
+                    <li>BBQ зона</li>
+                    <li>Постельное бельё</li>
+                </ul>
+            </div>
+
+            <div class="pricing-card featured">
+                <h3>Выходные</h3>
+                <p class="pricing-time">Пт — Вс, праздники</p>
+                <div class="price">550 <span>Br</span></div>
+                <p class="pricing-note">за сутки</p>
+                <ul class="pricing-list">
+                    <li>До 4 гостей</li>
+                    <li>Панорамные окна</li>
+                    <li>Горячая купель</li>
+                    <li>BBQ зона</li>
+                    <li>Постельное бельё</li>
+                    <li>Дрова для камина</li>
+                </ul>
+            </div>
+
+            <div class="pricing-card">
+                <h3>Неделя</h3>
+                <p class="pricing-time">7 дней</p>
+                <div class="price">2800 <span>Br</span></div>
+                <p class="pricing-note">за неделю</p>
+                <ul class="pricing-list">
+                    <li>До 4 гостей</li>
+                    <li>Все удобства</li>
+                    <li>Смена белья</li>
+                    <li>Уборка</li>
+                    <li>Приветственный набор</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="contact">
+        <div class="section-head">
+            <span class="section-label">Контакты</span>
+            <h2 class="section-title">Свяжитесь с нами</h2>
+        </div>
+
+        <div class="contact-grid">
+            <div class="contact-item">
+                <div class="contact-icon-wrap">📞</div>
+                <h3>Телефон</h3>
+                <a href="tel:+375291234567">+375 (29) 123-45-67</a>
+            </div>
+            <div class="contact-item">
+                <div class="contact-icon-wrap">✈️</div>
+                <h3>Telegram</h3>
+                <a href="https://t.me/medna_house">@medna_house</a>
+            </div>
+            <div class="contact-item">
+                <div class="contact-icon-wrap">📷</div>
+                <h3>Instagram</h3>
+                <a href="https://instagram.com/medna.house">@medna.house</a>
+            </div>
+            <div class="contact-item">
+                <div class="contact-icon-wrap">✉️</div>
+                <h3>Email</h3>
+                <a href="mailto:info@medna.by">info@medna.by</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-logo">Medna</div>
+        <p class="footer-copy">Barn House на берегу озера</p>
+    </footer>
+
+    <script>
+        // Navbar scroll
+        window.addEventListener('scroll', () => {
+            document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // Mobile menu
+        function toggleMenu() {
+            document.getElementById('navLinks').classList.toggle('active');
+        }
+
+        // Close menu on link click
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('navLinks').classList.remove('active');
+            });
+        });
+    </script>
+
+</body>
+</html>
